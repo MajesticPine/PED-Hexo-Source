@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Xmpp新手教程（初版） | 无产阶级工程部</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="https://majesticpine.github.io/img/Com.png"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=3.0.9"><!-- inject head--><link rel="canonical" href="http://majesticpine.github.io/2025/01/31/XMPP-Lesson/index.html"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- aplayer--><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="前言1976后, 中国的资本主义复辟了, 人民遭二茬罪, 吃二茬苦了… 在21世纪的今天, 随着计算机&amp;#x2F;计算机网络技术的进步, 计算机设备和网络已经成为了离不开人们生活的一部分 我们的无产阶级革命, 是不可能脱离计算机网络的, 因为我们要走群众路线, 就不可能离开群众所使用的东西, 当然,"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="无产阶级工程部"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="https://majesticpine.github.io/img/Com.png"><link rel="apple-touch-icon" href="https://majesticpine.github.io/img/Com.png" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.9' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>let mdate = "9-9";
+mdate = (mdate.split(","));
+let ndate = new Date();
+for (let i of mdate) {
+    if (i === (ndate.getMonth()+1) + "-" + (ndate.getDate())) {
+        document.documentElement.classList.add('memorial');
+    }
+}
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+          },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2025-01-31 11:00:00',
+    lazyload: {
+        enable: true,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可","barrage":{"title":"热评"}},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: ["你可以的","你一定可以的","祝你好运，陌生人"],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: {"avatar":"https://gravatar.com/avatar","commentBarrage":true},
+    lightbox: 'null',
+    post_ai: false,
+    right_menu: {"mode":{"dark":"深色模式","light":"浅色模式"},"img_error":"此图片无法复制与下载","music":{"start":"播放音乐","stop":"暂停音乐"},"barrage":{"open":"显示热评","close":"关闭热评"},"translate":true,"ctrlOriginalMenu":"按住Ctrl+右键可打开浏览器右键菜单"},
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: true,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body id="body"><!-- universe--><canvas id="universe"></canvas><!-- background img--><!-- loading--><div id="loading-box" onclick="preloader.endLoading();" style="zoom:1"><div class="loading-bg"><img class="loading-img nolazyload" src="https://majesticpine.github.io/img/Com.png" alt="loading image"></div></div><script>const preloader = {
+    isLoaded: false,
+    endLoading: () => {
+        if (!preloader.isLoaded) {
+            document.getElementById('loading-box').classList.add('loaded');
+            preloader.isLoaded = true;
+            preloader.togglePaceDone();
+        }
+    },
+    initLoading: () => {
+        document.getElementById('loading-box').classList.remove('loaded');
+        preloader.isLoaded = false;
+        preloader.togglePaceDone();
+    },
+    togglePaceDone: () => {
+        document.getElementById('body').className = preloader.isLoaded ? 'pace-done' : '';
+    }
+}
+
+window.addEventListener('load', () => {
+    preloader.endLoading();
+});
+
+window.addEventListener('pjax:send', () => {
+    preloader.initLoading();
+});
+
+document.addEventListener('pjax:complete', () => {
+    preloader.endLoading();
+});
+
+setTimeout(() => {
+    preloader.endLoading();
+}, 5000);</script><!-- console--><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">互动</div><div class="author-content-item-title">最新评论</div></div><div class="console_recentcomments"><script pjax>(async () => {
+    document.querySelector('.console-card .console_recentcomments').textContent = `加载中...`
+    const emojiReg = /<img [^>]+ class="wl-emoji">/g
+    let cache = utils.saveToLocal.get('waline-recent-comments-console')
+    if (cache) {
+        setHtml(document.querySelector('.console-card .console_recentcomments'), cache)
+        return
+    }
+    let ls = []
+    await fetch('https://ped-waline.vercel.app//api/comment?type=recent&count=6', {method: 'GET'}).then(async res => res.json())
+        .then(async data => {
+            for (const i of data.data) {
+                let title = ''
+                if (i.url) {
+                    await fetch(i.url).then(res => res.text()).then(html => {
+                        const parser = new DOMParser()
+                        const doc = parser.parseFromString(html, 'text/html')
+                        title = doc.querySelector('title').innerText
+                    }).catch(() => {
+                        title = i.url
+                    })
+                }
+                if (title.indexOf('|') > 0) {
+                    title = title.split('|')[0]
+                }
+                ls.push({
+                    title: title,
+                    url: i.url,
+                    nick: i.nick,
+                    avatar: i.avatar,
+                    time: new Date(i.time),
+                    content: formatContent(i.comment)
+                })
+            }
+            setHtml(document.querySelector('.console-card .console_recentcomments'), ls)
+            utils.saveToLocal.set('waline-recent-comments-console', ls, 0.2)
+        })
+
+    function setHtml(el, data) {
+        el.innerHTML = data.length !== 0 ? data.map(i => `
+                            <div class="comment-card" title="${i.title}" onclick="pjax.loadUrl('${i.url}')">
+                                <div class="comment-info">
+                                    <img src="${i.avatar}" class="nolazyload" alt="${i.nick}">
+                                    <div>
+                                        <span class="comment-user">${i.nick}</span>
+                                    </div>
+                                    <time class="comment-time" datetime="${i.time}"></time>
+                                </div>
+                                <div class="comment-content">${i.content}</div>
+                                <div class="comment-title">
+                                <i class="solitude fas fa-comment"></i>
+                                ${i.title}</div>
+                            </div>
+                        `).join('') : `暂无评论...`
+        if (typeof sco !== 'undefined') sco.changeTimeFormat(document.querySelectorAll('.comment-time'))
+        else {
+            document.addEventListener('pjax:complete', () => sco.changeTimeFormat(document.querySelectorAll('.comment-time')))
+            document.addEventListener('DOMContentLoaded', () => sco.changeTimeFormat(document.querySelectorAll('.comment-time')))
+        }
+    }
+
+    function formatContent(content) {
+        content = content.replace(emojiReg, '[表情]')
+        content = content.replace(/<img.*?>/g, '[图片]');
+        content = content.replace(/<a.*?>.*?<\/a>/g, '[链接]');
+        content = content.replace(/<pre.*?>.*?<\/pre>/g, '[代码]');
+        content = content.replace(/<.*?>/g, '');
+        return content
+    }
+})()</script></div></div></div><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/%E5%AE%89%E5%85%A8%E6%95%99%E7%A8%8B/">安全教程<sup>1</sup></a><a href="/tags/%E7%BB%84%E7%BB%87%E6%96%87%E4%BB%B6/">组织文件<sup>2</sup></a><a href="/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E6%8A%80%E6%9C%AF%E7%90%86%E8%AE%BA/">马克思主义技术理论<sup>3</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2025/01/"><span class="date">2025/01</span><div class="count-group"><span class="count">6</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">6</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div><div class="console-btn-item" id="consoleMusic" onclick="sco.musicToggle()"><span class="music-switch" title="音乐开关"><i class="solitude fas fa-compact-disc"></i></span></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="sco.switchCommentBarrage()"><span class="commentBarrage"><i class="solitude fas fa-comment"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/recentcomments/"><div class="headline">评论</div><div class="length-num" id="waline_allcount"><i class="solitude fas fa-spinner fa-spin"></i></div><script pjax="pjax">(async () => {
+  await fetch('https://ped-waline.vercel.app//api/comment?type=recent&count=-1', {method: 'GET'}).then(async res => res.json())
+    .then(async data => {
+      document.querySelector('#waline_allcount').innerHTML = data.length
+    })
+})()</script></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/jxgms/jxgmszlk/tree/main" title="Github资料库"><span class="back-menu-item-text">Github资料库</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://codeberg.org/LVOE/MarxistLeninistMaoistPhilosophicalHistoricalDatabase" title="Codeberg资料库"><span class="back-menu-item-text">Codeberg资料库</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>革命文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>全部文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>全部分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>全部标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/%20%7C%7C%20fas%20fa-user-group"><span>革命网站</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>图书馆</span></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://bookstore.cmlmuf.top"><span>统一战线</span></a></li><li><a class="site-page child" href="https://majesticpine.github.io/Rev_lib"><span>工程部</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://codeberg.org/LVOE/NewRevolutionDatabase"><span>哲史研究室</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/tags/%E5%AE%89%E5%85%A8%E6%95%99%E7%A8%8B/">安全教程<sup>1</sup></a><a href="/tags/%E7%BB%84%E7%BB%87%E6%96%87%E4%BB%B6/">组织文件<sup>2</sup></a><a href="/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E6%8A%80%E6%9C%AF%E7%90%86%E8%AE%BA/">马克思主义技术理论<sup>3</sup></a></div></div><span class="sidebar-menu-item-title">网站信息</span><div class="webinfo"><div class="webinfo-item"><div class="item-name">全站字数 :</div><div class="item-count">16.6k</div></div></div></div></div><!-- keyboard--><!-- righhtside--><div class="needEndHide" id="rightside"><div class="rs_hide"><button class="translate" type="button" title="简繁转换">简</button><button class="mode" type="button" title="显示模式切换" onclick="sco.switchDarkMode()"><i class="fas fa-circle-half-stroke"></i></button><button class="aside pc" type="button" title="侧边栏" onclick="sco.switchHideAside()"><i class="fas fa-arrows-alt-h"></i></button></div><div class="rs_show"><button class="config" type="button" title="扩展" onclick="document.querySelector(&quot;.rs_hide&quot;).classList.toggle(&quot;show&quot;)"><i class="fas fa-gear fa-spin"></i></button><button class="mobile toc" type="button" title="目录" onclick="document.querySelector('#card-toc').classList.toggle('open')"><i class="fas fa-list"></i></button><button class="comment" type="button" title="评论" onclick="sco.scrollTo('post-comment')"><i class="fas fa-comment"></i></button><button class="barrage pc" type="button" title="弹" onclick="sco.switchCommentBarrage()"><span>弹</span></button><button class="top" type="button" title="返回顶部" onclick="sco.toTop()"><i class="fas fa-arrow-up"></i><span id="percent">0</span></button></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon solitude fas fa-bars-progress"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://github.com/jxgms/jxgmszlk/tree/main" title="Github资料库"><span class="back-menu-item-text">Github资料库</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://codeberg.org/LVOE/MarxistLeninistMaoistPhilosophicalHistoricalDatabase" title="Codeberg资料库"><span class="back-menu-item-text">Codeberg资料库</span></a></div></div></div></div><a id="site-name" href="/" title="返回博客主页"><span class="title">无产阶级工程部</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">Xmpp新手教程（初版）</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>革命文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>全部文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>全部分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>全部标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/%20%7C%7C%20fas%20fa-user-group"><span>革命网站</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>图书馆</span></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://bookstore.cmlmuf.top"><span>统一战线</span></a></li><li><a class="site-page child" href="https://majesticpine.github.io/Rev_lib"><span>工程部</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://codeberg.org/LVOE/NewRevolutionDatabase"><span>哲史研究室</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener" href="https://lvoe.codeberg.page/philosophyandhistoryresearchroom/" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fas fa-dice-d6"></i></a></div><div class="nav-button" id="nav-console"><a class="console_switchbutton" onclick="sco.showConsole()" title="中控台" href="javascript:void(0);"><label><i class="left"></i><i class="center"></i><i class="right"></i></label></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/img/Cover.png" alt="Xmpp新手教程（初版）"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为转载或翻译文章，注意版权协议">转载或翻译</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8%E6%95%99%E7%A8%8B/">安全教程</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%85%A8%E6%95%99%E7%A8%8B/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>安全教程</span></a></div></div></div></div><h1 class="post-title">Xmpp新手教程（初版）</h1><div id="post-meta"><div class="meta-secondline"><span class="post-meta-date" title="发布于 2025-01-31 19:34:50"><i class="post-meta-icon solitude fas fa-calendar-days"></i><time datetime="2025-01-31T11:34:50.000Z">2025-01-31T11:34:50.000Z</time></span><span class="post-meta-date" title="最后更新于 2025-01-31 19:39:10"><i class="post-meta-icon solitude fas fa-arrows-rotate"></i><time datetime="2025-01-31T11:39:10.555Z">2025-01-31T11:39:10.555Z</time></span><span class="post-meta-wordcount"><i class="post-meta-icon solitude fas fa-file-word" title="文章字数"></i><span class="word-count">2.2k</span><span class="post-meta-separator"></span><i class="post-meta-icon solitude fas fa-clock" title="阅读耗时"></i><span>7 min</span></span><span class="post-meta-position" title="作者IP归属地为东方红人民公社"><i class="post-meta-icon solitude fas fa-location-dot"></i><span>东方红人民公社</span></span><span class="post-meta-commentcount" title="评论数" onclick="sco.scrollTo('post-comment')"><i class="solitude fas fa-comment"></i><a href="/2025/01/31/XMPP-Lesson/#post-comment"><span class="waline-comment-count"><i class="solitude fas fa-spinner fa-spin"></i></span></a></span></div></div></div><div id="post-info-bottom"></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>1976后, 中国的资本主义复辟了, 人民遭二茬罪, 吃二茬苦了…</p>
+<p>在21世纪的今天, 随着计算机&#x2F;计算机网络技术的进步, 计算机设备和网络已经成为了离不开人们生活的一部分 我们的无产阶级革命, 是不可能脱离计算机网络的, 因为我们要走群众路线, 就不可能离开群众所使用的东西, 当然, 如果没有计算机网络, 我们的通讯手段也是无法和中国修正产党抗衡的, 这就是我们使用计算机网络的必要性.</p>
+<p>可在如今, 资产阶级专政下的计算机网络, 又怎为我们的革命所用? 面对无处不在的监控, 我们的选择是: XMPP</p>
+<h1 id="什么是XMPP？"><a href="#什么是XMPP？" class="headerlink" title="什么是XMPP？"></a>什么是XMPP？</h1><p>XMPP是一套的网络通讯协议, 具备良好的匿名性, 其客户端的实现还支持端对端的加密通讯, 是我们革命者最佳的选择.</p>
+<h1 id="进入XMPP"><a href="#进入XMPP" class="headerlink" title="进入XMPP"></a>进入XMPP</h1><p>下载Xmpp客户端并使用<br>手机用户请点这</p>
+<p>电脑用户请点这<br>手机用户使用Xmpp客户端<br>如果你是苹果手机用户, 那么建议换一台安卓的手机来使用xmpp,因为苹果系统的高度封闭,其安全性是很难保证的</p>
+<p>在你开始下载和使用Xmpp客户端前, 你需要下载F-Droid(简称fd)</p>
+<p>阅读此网页, 完成操作, 然后回来此界面<br>准备完成后, 搜索并下载 Conversations</p>
+<p>它应该长这样:</p>
+<p>下载完成后, 启动它</p>
+<p>然后你会进入它的初始界面, 你需要添加一个xmpp账号, 点击创建账号</p>
+<p>然后它会让你选择服务商, 你可以选择conversations.im, 不过, 有可能你所在的地区会很难连接到它们的服务器.</p>
+<p>如果你确实没法使用conversations.im作为服务商, 你可以选择另外一个选项, 使用其他的提供商</p>
+<p>然后选一个你可以连接得上的(推荐draugr.de), 按流程注册好账号即可</p>
+<p>你可以点此链接加入到 哲史革命社,这里都是左派,我们有良好的社区环境, 你可以在此学习马列毛知识,思想改造,为以后的无产阶级革命准备!</p>
+<p>你还可以点此加入无产阶级工程部,学习技术,研究技术</p>
+<p>点击顶部群的名字, 即可查看公告, 请仔细阅读哟</p>
+<h1 id="接下来请阅读安全事项相关"><a href="#接下来请阅读安全事项相关" class="headerlink" title="接下来请阅读安全事项相关"></a>接下来请阅读安全事项相关</h1><h2 id="电脑用户使用Xmpp客户端"><a href="#电脑用户使用Xmpp客户端" class="headerlink" title="电脑用户使用Xmpp客户端"></a>电脑用户使用Xmpp客户端</h2><p>如果你使用的是苹果的系统,还是建议换GNU&#x2F;Linux系统(你可以先使用苹果系统,用网页版的xmpp端,先学习换系统)</p>
+<p>对于Windows,Linux系统,可以使用Gajim</p>
+<p>点此下载</p>
+<p>Windows用户可以按 [Win]+[R] , 输入 cmd ,在cmd里输入 winget install gajim.gajim, 以此来下载,比较方便</p>
+<p>下载完成后, 打开它</p>
+<p>接着, 你会进入”欢迎界面”</p>
+<p>点击下方的注册</p>
+<p>然后它会让你选择提供者(推荐draugr.de)</p>
+<p>输入你要注册账号的名字(一般都是小写字母+数字的组合,中文名仅部分服务器支持)</p>
+<p>设置密码时,一般服务器都会要求有大小写组合,以及数字,不小于8的长度</p>
+<p>如果有验证码,看仔细它显示的图片,输入你看到的就行了</p>
+<p>点击开始聊天,输入 <a href="mailto:&#x67;&#98;&#117;&#x64;&#110;&#x31;&#x39;&#x40;&#x63;&#111;&#110;&#102;&#101;&#114;&#101;&#110;&#99;&#101;&#x2e;&#99;&#x6f;&#x6e;&#x76;&#x65;&#114;&#115;&#97;&#116;&#105;&#x6f;&#110;&#x73;&#46;&#x69;&#x6d;">&#x67;&#98;&#117;&#x64;&#110;&#x31;&#x39;&#x40;&#x63;&#111;&#110;&#102;&#101;&#114;&#101;&#110;&#99;&#101;&#x2e;&#99;&#x6f;&#x6e;&#x76;&#x65;&#114;&#115;&#97;&#116;&#105;&#x6f;&#110;&#x73;&#46;&#x69;&#x6d;</a> , 双击开始新聊天</p>
+<p>在右下角设置一个昵称, 再点击加入, 你就可以进入 哲史革命社 了, 这里都是左派, 有良好的社区环境, 你可以在此学习马列毛知识,思想改造,为以后的无产阶级革命准备!</p>
+<p>输入 无产阶级工程部@conference.conversations.im 加入无产阶级工程部, 学习技术, 研究技术</p>
+<p>进群后点击右上角往左数第三个按钮, 可以查看群公告, 请仔细阅读哟</p>
+<h2 id="账号安全"><a href="#账号安全" class="headerlink" title="账号安全"></a>账号安全</h2><p>前言已经提到了, 我们是在重重监控下选择的Xmpp, 那么这逃离监控的技术也必然是中修所注意的</p>
+<p>接下来讲讲Xmpp能够成为我们无产阶级革命的通讯方式的</p>
+<p>不同于国内的QQ,微信,Xmpp账号的注册不需要邮箱,不需要手机号,也就是没法直接通过你的账号信息来找到现实的你</p>
+<p>但是, 并不意味着在Xmpp上是可以为所欲为的, 你需要保证你的Xmpp账号的名字与头像, 和你在QQ,微信上的信息隔离开来, 如果你没做到这点,那么请新建一个满足此点的账号</p>
+<p>因为Xmpp账号注册是0成本的, 所以在Xmpp上的公开群组, 是极大概率会受到中修的视奸的</p>
+<p>所以你除了需要注意账号信息以外, 还需要注意言行:</p>
+<p>不要泄露你在国内平台的一切信息, 如QQ号,微信号…不要泄露你在国内平台做过的行为, 不要泄露你的 年龄, 学历, 身高, 性别, 所在地(最好省级都别), 不要泄露你的真实姓名, 身份证号…</p>
+<p>如果有人询问你有关个人的信息, 特别是在你并不认识对方的情况下, 千万不要回答, 并且要拉黑他, 这样的人很可能是网警,需要高度警惕</p>
+<h2 id="手机Xmpp的安全设置"><a href="#手机Xmpp的安全设置" class="headerlink" title="手机Xmpp的安全设置"></a>手机Xmpp的安全设置</h2><p>在主界面右上角, 找到设置-安全,把验证前盲目信任关闭, OMEMO加密改为始终, 自动删除消息建议改为1周</p>
+<p>再找到设置-隐私, 关闭 最后上线,在设置-通知, 消息通知设置里, 把软件的全部消息通知关闭, 在设置-界面里, 关闭允许截屏, 不要打开,除非你确认你的操作系统是安全的(国产的一律不安全)</p>
+<h2 id="电脑Xmpp的安全设置"><a href="#电脑Xmpp的安全设置" class="headerlink" title="电脑Xmpp的安全设置"></a>电脑Xmpp的安全设置</h2><p>在Gajim主界面的左上角, Gajim-首选项里, 通知里全部关掉</p>
+<p>在账号-管理账号里, 点开一个账号,找到隐私,把 空闲时间 和 本地系统时间 和 操作系统 以及媒体播放全部关闭, 建议把 保留聊天记录 改为1周</p>
+<p>在加密里, 把盲目信任关闭</p>
+<p>如果你有多个账号, 则需要每个账号都进行这样的设置, 因为这个设置是每个账号独立的, 在登录新账号时也要再给那个账号进行设置, 不要忘了</p>
+<h1 id="关于OMEMO加密"><a href="#关于OMEMO加密" class="headerlink" title="关于OMEMO加密"></a>关于OMEMO加密</h1><p>上文提到了”关闭盲目信任”, 现在在此进行解释</p>
+<p>OMEMO加密是一种”端对端”的加密, 说得通俗一点, 就是只有双方可解密, 而第三方想要破解是几乎不可能的</p>
+<p>其原理是一种非对称加密, 通讯的双方都有一对密钥, 公钥和私钥, 一般端到端加密时, 双方需要交换公钥, 以此进行加密</p>
+<p>例子:<br>这里有两个人, A和B, 他们都有一对密钥, A的私钥和公钥, B的私钥和公钥</p>
+<p>他们在进行加密通讯前, A和B都需要把他们的公钥给对方</p>
+<p>关键来了, 当A使用B的公钥进行加密, 所得的密文只有使用B的私钥才能正常解密</p>
+<p>而这样的非对称加密, 密钥往往是非常复杂的, 也就是暴力破解的成本极高</p>
+<p>并且, 在使用Xmpp客户端时, 你的每一个账号都有一个对应的密钥对, 并且当你使用新的客户端时, 会给每一个账号又生成不一样的密钥对</p>
+<p>如果你的联系人的账号被盗, 即他的账号在别的客户端被登录了, 会产生一个新的密钥, 如果对方并没有事先通知或是没有给出解释, 则他的号必然是被盗了</p>
+<p>此时, 上文提到的 关闭盲目信任 就发挥作用了, 你的客户端会提醒你有新的未授权&#x2F;未信任omemo指纹, 你在此时需要向对方确认, 如果对方否认了自己在新客户端登录, 请不要信任他的新密钥(联系人详情里可以选择信任哪些)</p>
+<p>然后通知他更换自己的密码</p>
+<p>如果你确认被盗号的是你, 同上, 必须改密码, 并且通知你的联系人</p>
+<p>上文讲到的在多人聊群中是通用的</p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src= "" data-lazy-src="/img/logo.png"></div><div class="post-copyright__author_name">LL1349著, 青松进行调整</div><div class="post-copyright__author_desc">PED</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="social-share"><a class="social-share-ico icon-telegram" target="_blank" rel="noopener" href="https://t.me/share/url?url=http%3A%2F%2Fmajesticpine.github.io%2F2025%2F01%2F31%2FXMPP-Lesson%2F&amp;text=Xmpp%E6%96%B0%E6%89%8B%E6%95%99%E7%A8%8B%EF%BC%88%E5%88%9D%E7%89%88%EF%BC%89" title="分享到Telegram"><i class="solitude fab fa-telegram"></i></a><div class="social-share-ico icon-link" onclick="utils.copy(&quot;http://majesticpine.github.io/2025/01/31/XMPP-Lesson/&quot;)" title="复制文章链接"><i class="solitude fas fa-link"></i></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是转载或翻译文章，版权归原作者所有。转载本文请联系原作者。</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%85%A8%E6%95%99%E7%A8%8B/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>安全教程<span class="tagsPageCount">1</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/01/31/%E8%87%AA%E7%94%B1%E4%B8%BB%E4%B9%89%E8%BF%98%E6%98%AF%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89/"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">自由软件主义还是马克思主义？</div></div></a></div></nav><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="solitude fas fa-comment"></i><span> 评论</span><span class="count"> (<span class="waline-comment-count"><i class="solitude fas fa-spinner fa-spin"></i></span>)</span></div></div><div class="comment-wrap"><div id="waline-wrap"></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src= "" data-lazy-src="/img/logo.png"></div><div class="description">这是我的博客 / This is my Blog</div><div class="bottom-group"><span class="left"><div class="name">无产阶级革命技术人员</div><div class="desc">坚持无产阶级政治挂帅<br >批判修正主义技术黑线</div></span><div class="social-icons is-center"><a class="social-icon" target="_blank" rel="noopener" href="https://github.com/everfu" title="Github"><i class="solitude  fab fa-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFXMPP%EF%BC%9F"><span class="toc-text">什么是XMPP？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5XMPP"><span class="toc-text">进入XMPP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E8%AF%B7%E9%98%85%E8%AF%BB%E5%AE%89%E5%85%A8%E4%BA%8B%E9%A1%B9%E7%9B%B8%E5%85%B3"><span class="toc-text">接下来请阅读安全事项相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E8%84%91%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8Xmpp%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">电脑用户使用Xmpp客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E5%8F%B7%E5%AE%89%E5%85%A8"><span class="toc-text">账号安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%8B%E6%9C%BAXmpp%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">手机Xmpp的安全设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E8%84%91Xmpp%E7%9A%84%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE"><span class="toc-text">电脑Xmpp的安全设置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EOMEMO%E5%8A%A0%E5%AF%86"><span class="toc-text">关于OMEMO加密</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/2025/01/31/XMPP-Lesson/" title="Xmpp新手教程（初版）"><div class="thumbnail"><img alt="Xmpp新手教程（初版）" src= "" data-lazy-src="/img/Cover.png"></div><div class="content"><span class="title" href="/2025/01/31/XMPP-Lesson/" title="Xmpp新手教程（初版）">Xmpp新手教程（初版）</span><span class="categories" href="/2025/01/31/XMPP-Lesson/">安全教程</span></div></a><a class="aside-list-item" href="/2025/01/31/%E8%87%AA%E7%94%B1%E4%B8%BB%E4%B9%89%E8%BF%98%E6%98%AF%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89/" title="自由软件主义还是马克思主义？"><div class="thumbnail"><img alt="自由软件主义还是马克思主义？" src= "" data-lazy-src="/img/Cover.png"></div><div class="content"><span class="title" href="/2025/01/31/%E8%87%AA%E7%94%B1%E4%B8%BB%E4%B9%89%E8%BF%98%E6%98%AF%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89/" title="自由软件主义还是马克思主义？">自由软件主义还是马克思主义？</span><span class="categories" href="/2025/01/31/%E8%87%AA%E7%94%B1%E4%B8%BB%E4%B9%89%E8%BF%98%E6%98%AF%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89/">马克思主义技术理论</span></div></a><a class="aside-list-item" href="/2025/01/31/%E6%89%B9%E5%88%A4%E7%99%BD%E8%89%B2%E4%B8%93%E5%AE%B6/" title="批判白色专家和他们的白色路线"><div class="thumbnail"><img alt="批判白色专家和他们的白色路线" src= "" data-lazy-src="/img/Cover.png"></div><div class="content"><span class="title" href="/2025/01/31/%E6%89%B9%E5%88%A4%E7%99%BD%E8%89%B2%E4%B8%93%E5%AE%B6/" title="批判白色专家和他们的白色路线">批判白色专家和他们的白色路线</span><span class="categories" href="/2025/01/31/%E6%89%B9%E5%88%A4%E7%99%BD%E8%89%B2%E4%B8%93%E5%AE%B6/">马克思主义技术理论</span></div></a><a class="aside-list-item" href="/2025/01/31/%E9%9D%A9%E5%91%BD%E8%87%AA%E7%94%B1%E8%BD%AF%E4%BB%B6%E8%BF%90%E5%8A%A8%E5%AE%A3%E8%A8%80/" title="革命自由软件运动宣言"><div class="thumbnail"><img alt="革命自由软件运动宣言" src= "" data-lazy-src="/img/Cover.png"></div><div class="content"><span class="title" href="/2025/01/31/%E9%9D%A9%E5%91%BD%E8%87%AA%E7%94%B1%E8%BD%AF%E4%BB%B6%E8%BF%90%E5%8A%A8%E5%AE%A3%E8%A8%80/" title="革命自由软件运动宣言">革命自由软件运动宣言</span></div></a><a class="aside-list-item" href="/2025/01/31/introduce/" title="关于无产阶级工程部的介绍"><div class="thumbnail"><img alt="关于无产阶级工程部的介绍" src= "" data-lazy-src="/img/Cover.png"></div><div class="content"><span class="title" href="/2025/01/31/introduce/" title="关于无产阶级工程部的介绍">关于无产阶级工程部的介绍</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer-bar"><div class="footer-logo"><span>无产阶级工程部</span></div><div class="footer-bar-description"></div><a class="footer-bar-link" href="/about/"></a></div><div id="st-footer"><div class="footer-group"><h3 class="footer-title">导航</h3><div class="footer-links"><a class="footer-item" href="/archives/" title="Archives">Archives</a><a class="footer-item" href="/categories/" title="Categories">Categories</a><a class="footer-item" href="/tags/" title="Tags">Tags</a></div></div><div class="footer-group"><h3 class="footer-title">排列</h3><div class="footer-links"><a class="footer-item" href="/cookies/" title="Cookies">Cookies</a><a class="footer-item" href="/privacy/" title="Privacy">Privacy</a><a class="footer-item" href="/copyright/" title="Copyright">Copyright</a></div></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2025 By&nbsp;<a class="footer-bar-link" href="/"><img class="author-avatar" src= "" data-lazy-src="https://majesticpine.github.io/img/Com.png">无产阶级革命技术人员</a></div></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><!-- right_menu--><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="solitude fas fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="solitude fas fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="solitude fas fa-arrows-rotate"></i></div><div class="rightMenu-item" id="menu-top"><i class="solitude fas fa-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="solitude fas fa-clone"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="solitude fas fa-clipboard"></i><span>粘贴文本</span></div><div class="rightMenu-item" id="menu-commenttext"><i class="solitude fas fa-comment-medical"></i><span>引用到评论</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="solitude far fa-window-maximize"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="solitude fas fa-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="solitude fas fa-clone"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="solitude fas fa-cloud-arrow-down"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="solitude fas fa-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="solitude fas fa-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="solitude fas fa-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="solitude fas fa-clone"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-randomPost" onclick="toRandomPost()||rm.hideRightMenu()"><i class="solitude fas fa-tower-broadcast"></i><span>随机文章</span></div><div class="rightMenu-item" onclick="pjax.loadUrl('/categories/')||rm.hideRightMenu()"><i class="solitude fas fa-clone"></i><span>全部分类</span></div><div class="rightMenu-item" onclick="pjax.loadUrl('/tags/')||rm.hideRightMenu()"><i class="solitude fas fa-tags"></i><span>全部标签</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-commentBarrage" onclick="sco.switchCommentBarrage()"><i class="solitude fas fa-comment"></i><span class="menu-commentBarrage-text">关闭热评</span></div><div class="rightMenu-item" id="menu-darkmode" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></div><div class="rightMenu-item" id="menu-translate"><i class="solitude fas fa-language"></i><span>轉為繁體</span></div></div></div><div id="rightmenu-mask"></div><!-- inject body--><div><script src="/js/utils.js?v=3.0.9"></script><script src="/js/main.js?v=3.0.9"></script><script src="/js/third_party/waterfall.min.js?v=3.0.9"></script><script src="https://fastly.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/third_party/universe.min.js?v=3.0.9"></script><script>dark()
+</script><script src="/js/tw_cn.js?v=3.0.9"></script><script src="https://fastly.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://fastly.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>var meting_api = 'https://meting.qjqq.cn/?server=:server&type=:type&id=:id&auth=:auth&r=:r';</script><script src="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://fastly.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://fastly.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><script src="/js/right_menu.js?v=3.0.9"></script><div class="js-pjax"><script>(() => {
+    let walineInitFunction = window.walineFn || null
+
+    function initWaline(initFn) {
+        const walineOptions = {
+            el: '#waline-wrap',
+            serverURL: 'https://ped-waline.vercel.app/',
+            pageview: true,
+            dark: 'html[data-theme="dark"]',
+            path: window.location.pathname,
+            comment: true,
+            ...null
+        }
+        const walineInstance = initFn(walineOptions)
+        utils.addGlobalFn('pjax', () => walineInstance.destroy(), 'destroyWaline')
+        GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll('#comment .wl-content img:not(.wl-emoji)'))
+        sco.owoBig({
+            body: '.wl-emoji-popup',
+            item: '.wl-tab-wrapper button'
+        })
+    }
+
+    async function loadWaline() {
+        if (walineInitFunction) initWaline(walineInitFunction)
+        else {
+            await utils.getCSS('https://fastly.jsdelivr.net/npm/@waline/client@3.4.2/dist/waline.min.css')
+            const {init} = await import('https://fastly.jsdelivr.net/npm/@waline/client@3.4.2/dist/waline.min.js')
+            walineInitFunction = init || Waline.init
+            initWaline(walineInitFunction)
+            window.walineFn = walineInitFunction
+        }
+        true && barrageWaline()
+    }
+
+    if (true || true) {
+        if (true) utils.loadComment(document.getElementById('waline-wrap'), loadWaline)
+        else loadWaline()
+    } else window.loadTwoComment = loadWaline
+})()
+</script><script>async function barrageWaline() {
+    const url = new URL('https://ped-waline.vercel.app//api/comment')
+    const params = {path: window.location.pathname, sortBy: 'insertedAt_asc'}
+    Object.entries(params).forEach(([key, value]) => url.searchParams.append(key, value))
+    await fetch(url).then(async res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
+        const data = await res.json();
+        const regex = /<img [^>]*class="wl-emoji"[^>]*>/;
+        const init = () => {
+            initializeCommentBarrage(data.data.data
+                .map(item => ({
+                    nick: item.nick,
+                    mailId: item.avatar,
+                    content: item.comment.replace(regex, ''),
+                    id: item.objectId
+                })))
+        }
+        if (typeof initializeCommentBarrage === "undefined") await utils.getScript('/js/third_party/barrage.min.js?v=3.0.9').then(init)
+        else init()
+    }).catch(error => console.error("An error occurred while fetching comments: ", error))
+}</script></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- google adsense--><!-- search--><!-- Tianli-Talk--><!-- music--><div class="needEndHide" id="nav-music"><div id="nav-music-hoverTips" onclick="sco.musicToggle()">音乐已暂停</div><meting-js id="5144842535" server="netease" type="playlist" mutex="true" preload="none" theme="var(--efu-main)" data-lrctype="0" order="random" volume="0.8"></meting-js></div></body></html>
+        <script>
+            const posts = ["2025/01/31/XMPP-Lesson/","2025/01/31/自由主义还是马克思主义/","2025/01/31/批判白色专家/","2025/01/31/革命自由软件运动宣言/","2025/01/31/introduce/","2025/01/28/Talk-PT/"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
